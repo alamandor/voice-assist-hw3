@@ -1,34 +1,3 @@
-<!-- <main class="w-50 mx-auto">
-  <form class="bg-light border rounded mx-auto mt-5 p-3">
-    <h1 class="h2 text-center mt-2 mb-4">Homework 3</h1>
-    <div class="form-group">
-      <label for="field1">Leaving From:</label>
-      <input type="text" class="form-control" id="field1" name="field1" />
-    </div>
-    <div class="form-group">
-      <label for="field2">Destination:</label>
-      <input type="text" class="form-control" id="field2" name="field2" />
-    </div>
-    <div class="form-group">
-      <label for="field3">Carry on needed?</label>
-      <textarea
-        class="form-control"
-        id="field3"
-        name="field3"
-        rows="3"
-      ></textarea>
-    </div>
-    <div class="form-group mt-4">
-      <input
-        type="submit"
-        id="subBtn"
-        class="btn btn-primary btn-block"
-        value="Submit / Speak"
-      />
-    </div>
-  </form>
-</main> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,16 +16,6 @@
   <body>
     <main class="container text-center mx-auto mt-5">
       <h1>Web Speech Demo</h1>
-      <!-- <div class="my-4">
-        <button class="btn btn-success my-2" id="start">
-          Start Recognition
-        </button>
-        <button class="btn btn-danger my-2 stop" >Stop Recognition</button>
-        <button class="btn btn-light my-2" id="clear">Clear Transcript</button>
-        <button class="btn btn-info my-2" id="play">Play Speech</button>
-      </div>
-      <textarea name="transcript" id="transcript" rows="10"></textarea> -->
-      <textarea name="error" id="error" rows="10"></textarea>
       <form class="bg-light border rounded mx-auto mt-5 p-3">
         <h1 class="h2 text-center mt-2 mb-4">Homework 3</h1>
         <div class="form-group">
@@ -65,7 +24,7 @@
           <button class="btn btn-info my-2" id="departButton">
             Record Departure
           </button>
-        <button class="btn btn-danger my-2 stop" >Stop Recognition</button>
+          <button class="btn btn-danger my-2 stop">Stop Recognition</button>
         </div>
         <div class="form-group">
           <label for="field2">Destination:</label>
@@ -73,23 +32,25 @@
           <button class="btn btn-info my-2" id="destinationButton">
             Record Destination
           </button>
-        <button class="btn btn-danger my-2 stop" >Stop Recognition</button>
+          <button class="btn btn-danger my-2 stop">Stop Recognition</button>
         </div>
         <div class="form-group">
           <label for="field3">Carry on needed?</label>
+          <div class="radioButtonDiv">
+            <label for="bagTrue"> Yes</label>
+            <input type="radio" name="bag" id="bagTrue" />
+            <label for="bagFalse">No</label>
+            <input type="radio" name="bag" id="bagFalse" />
+          </div>
           <div>
             <button class="btn btn-info my-2" id="carryOnButton">
               Record carry on choice
-            </div>
-          </button>
-        <button class="btn btn-danger my-2 stop" >Stop Recognition</button>
-          <div class="radioButtonDiv">
-            <label for="bagTrue"> Yes</label>
-            <input type="radio" name="bag" id="bagTrue"/>
-            <label for="bagFalse">No</label>
-            <input type="radio" name="bag" id="bagFalse"/>
-            </div>
-
+            </button>
+            <span
+              ><button class="btn btn-danger my-2 stop">
+                Stop Recognition
+              </button></span
+            >
           </div>
         </div>
         <div class="form-group mt-4">

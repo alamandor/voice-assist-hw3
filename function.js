@@ -1,60 +1,3 @@
-// window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-// const recognition = new SpeechRecognition();
-// recognition.continuous = true;
-// recognition.lang = 'en-US';
-// recognition.interimResults = true;
-
-// // const synthesis = new speechSynthesis();
-// let speechArea = document.getElementById('field3');
-
-// let recording = false;
-// let startRecognition = (event) => {
-// 	console.log("Speech Recognition Started")
-// 	recognition.continuous = true
-
-// 	recognition.addEventListener('result', event => {
-// 		const transcript = Array.from(event.results)
-// 		.map((result) => result[0])
-// 		.map((result) => result.transcript)
-// 		.join("");
-// 	console.log(transcript)
-// 	speechArea.innerHTML = transcript;
-// 	});
-// 	recording = true;
-// 	recognition.start();
-// }
-// function handleStartRecognition(event) {
-// 	console.log('start speech recognition');
-
-// 	recognition.addEventListener('error', (event) => {
-// 	  console.log('an error occurred');
-// 	});
-
-// 	recognition.addEventListener('result', (event) => {
-// 	  const results = Array.from(event.results)
-// 	    .map((item) => item[0].transcript)
-// 	    .join('');
-
-// 	  console.log(results);
-// 	  transcript.textContent = results;
-// 	});
-
-// 	recognition.start();
-//       }
-// const stopRecognition = (event) => {
-// 	recognition.stop();
-// 	recording = false;
-
-// }
-
-// document.getElementById('subBtn').addEventListener("click", handleStartRecognition)
-
-// // recognition.onresult = function(event) {
-// // 	var result = event.results[0][0].transcript;
-// // 	console.log("result recieved: ", result)
-// // 	console.log('Confidence: ' + event.results[0][0].confidence);
-// //       }
-
 // Create new instance - speech synthesis
 const synthesis = window.speechSynthesis;
 
@@ -66,21 +9,10 @@ window.SpeechGrammarList =
   window.SpeechGrammarList || window.webkitSpeechGrammarList;
 window.SpeechRecognitionEvent =
   window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
-
-// var formOptions = ["Departing", "Destination", "Bag", "Carry On"];
-// var grammar =
-//   "#JSGF V1.0; grammar colors; public <formOptions> = " +
-//   formOptions.join(" | ") +
-//   " ;";
-
-// let speechRecognitionList = new SpeechGrammarList();
-// speechRecognitionList.addFromString(grammar, 1);
-
 // Create new instance - speech recognition
 const recognition1 = new SpeechRecognition();
 const recognition2 = new SpeechRecognition();
 const recognition3 = new SpeechRecognition();
-// recognition.grammars = speechRecognitionList;
 recognition1.interimResults = true;
 recognition1.continuous = false;
 recognition1.lang = "en-US";
@@ -94,56 +26,25 @@ recognition3.continuous = false;
 recognition3.lang = "en-US";
 
 // Grab elements from the DOM
-// let startRecognition = document.querySelector("#start");
-// let stopRecognition = document.querySelector("stop");
-// let clearTranscript = document.querySelector("#clear");
-// let playSpeech = document.querySelector("#play");
-// let transcript = document.querySelector("#transcript");
 let errorBox = document.querySelector("#error");
 let recordDepart = document.querySelector("#departButton");
 let recordDest = document.querySelector("#destinationButton");
 let recordBag = document.querySelector("#carryOnButton");
+let submit = document.querySelector("#subBtn");
 
 const field1 = document.querySelector("#field1");
 const field2 = document.querySelector("#field2");
 const field3 = document.querySelector("#field3");
 
 // Add event listeners
-// startRecognition.addEventListener("click", handleStartRecognition);
-// stopRecognition.addEventListener("click", handleStopRecognition);
-// clearTranscript.addEventListener("click", handleClearTranscript);
-// playSpeech.addEventListener("click", handlePlaySpeech);
 recordDepart.addEventListener("click", handleRecordDepart);
 recordDest.addEventListener("click", handleRecordDestination);
 recordBag.addEventListener("click", handleRecordCarryOn);
+submit.addEventListener("click", handlePlaySpeech);
 btns = document.getElementsByClassName("stop");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", handleStopRecognition);
 }
-
-// function handleStartRecognition(event) {
-//   console.log("start speech recognition");
-
-//   recognition.addEventListener("error", (event) => {
-//     console.log("an error occurred");
-//   });
-//   recognition.addEventListener("onnomatch", (event) => {
-//     errorBox.textContent = "I didnt recognize that phrase.";
-//   });
-
-//   recognition.addEventListener("result", (event) => {
-//     const results = Array.from(event.results)
-//       .map((item) => {
-//         item[0].transcript;
-//       })
-//       .join("");
-
-//     console.log(results);
-//     transcript.textContent = results;
-//   });
-
-//   recognition.start();
-// }
 
 function handleRecordDepart(event) {
   event.preventDefault();
@@ -167,7 +68,6 @@ function handleRecordDepart(event) {
       .join("");
 
     console.log(results);
-    // transcript.textContent = results;
   });
 
   recognition1.start();
@@ -196,8 +96,6 @@ function handleRecordDestination(event) {
       .join("");
 
     console.log(results);
-    // transcript.textContent = results;
-    // field2.value = results;
   });
 
   recognition2.start();
@@ -228,8 +126,6 @@ function handleRecordCarryOn(event) {
       .join("");
 
     console.log(results);
-    // transcript.textContent = results;
-    // field3.value = results;
   });
 
   recognition3.start();
@@ -248,13 +144,22 @@ function handleClearTranscript(event) {
 }
 
 function handlePlaySpeech(event) {
+  event.preventDefault();
   console.log("speech synthesis");
+  let field1Text = field1.value;
+  let field2Text = field2.value;
+  let field3Text = "";
+  if (document.getElementById("bagTrue").checked === true) {
+    field3Text = "With a Carry on Bag";
+  }
+  if (document.getElementById("bagFalse").checked === true) {
+    field3Text = "Without a Carry on Bag";
+  }
 
-  let utterance = new SpeechSynthesisUtterance(transcript.textContent);
-  synthesis.speak(utterance);
+  let utterance1 = new SpeechSynthesisUtterance("departing from " + field1Text);
+  let utterance2 = new SpeechSynthesisUtterance("destination " + field2Text);
+  let utterance3 = new SpeechSynthesisUtterance(field3Text);
+  synthesis.speak(utterance1);
+  synthesis.speak(utterance2);
+  synthesis.speak(utterance3);
 }
-
-// recognition.onspeechend = function (event) {
-//   console.log("speech end");
-//   recognition.stop();
-// };
